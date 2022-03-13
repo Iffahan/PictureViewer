@@ -78,7 +78,20 @@ namespace PictureViewer
 
         private void button1_Click(object sender, EventArgs e)
         {
+            openFileDialog1 = new OpenFileDialog();
+            string Direct = fbd.SelectedPath.ToString();
 
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string source = openFileDialog1.FileName;
+            }
+
+            string Fname = Path.GetFileName(openFileDialog1.FileName);
+            string destpath = Direct + "\\" + Fname;
+            string sourcepath = openFileDialog1.FileName;
+            destpath = Path.Combine(sourcepath, destpath);
+            File.Copy(sourcepath, destpath, true);
+            MessageBox.Show("Add The Picyure You Select To Alblum Folder");
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
