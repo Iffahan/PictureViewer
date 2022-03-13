@@ -10,6 +10,12 @@
         public PictureViewer()
         {
             InitializeComponent();
+            NextButton.Hide();
+            BackButton.Hide();
+            AddButton.Hide();
+            DeleteButton.Hide();
+            textBox1.Hide();
+            textBox2.Hide();
         }
 
         private string[] GetFiles(string folderPath, String Searchpattern)
@@ -36,14 +42,23 @@
             DialogResult result = fbd.ShowDialog();
 
             images = GetFiles(fbd.SelectedPath, "*.gif|*.jpg|*.png|*.bmp");
-            System.Diagnostics.Debug.WriteLine(result.ToString());
-            System.Diagnostics.Debug.WriteLine(images.Length);
-            System.Diagnostics.Debug.WriteLine(fbd.SelectedPath.ToString());
 
-            textBox1.Text = fbd.SelectedPath.ToString();
-            textBox2.Text = "Number of Pictures in Alblum:  " + images.Length.ToString();
+            if (result == DialogResult.OK)
+            {
+                textBox1.Text = fbd.SelectedPath.ToString();
+                textBox2.Text = "Number of Pictures in Alblum:  " + images.Length.ToString();
 
-            pictureBox1.Image = Image.FromFile(images[counter]);
+                pictureBox1.Image = Image.FromFile(images[counter]);
+
+                NextButton.Show();
+                BackButton.Show();
+                AddButton.Show();
+                DeleteButton.Show();
+                textBox1.Show();
+                textBox2.Show();
+            }
+
+
         }
 
         private void NextButton_Click(object sender, EventArgs e)
@@ -143,6 +158,13 @@
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PictureViewer pictureViewer = new PictureViewer();
+            pictureViewer.Hide();
+            this.Dispose(false);
         }
     }
 }
