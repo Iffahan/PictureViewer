@@ -110,19 +110,34 @@
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-
-            pictureBox1.Image = Image.FromFile(images[counter - 1]);
-
-            if (File.Exists(images[counter]))
+            DialogResult DeleteResult = MessageBox.Show("You want to delete the current picture? ", "Sure?",  MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (DeleteResult == DialogResult.Yes)
             {
-                System.GC.Collect();
-                System.GC.WaitForPendingFinalizers();
-                File.Delete(images[counter]);
-                PictureViewer pictureViewer = new PictureViewer();
-                pictureViewer.Show();
-                this.Dispose(false);
+                pictureBox1.Image = Image.FromFile(images[counter - 1]);
+
+                if (File.Exists(images[counter]))
+                {
+                    System.GC.Collect();
+                    System.GC.WaitForPendingFinalizers();
+                    File.Delete(images[counter]);
+                    DialogResult ResetDelete = MessageBox.Show("You Need to Reset After Delete","Reset to See New Alblum");
+
+                    if (ResetDelete == DialogResult.OK)
+                    {
+                        PictureViewer pictureViewer = new PictureViewer();
+                        pictureViewer.Show();
+                        this.Dispose(false);
+                    }
+                }
 
             }
+            else if (DeleteResult == DialogResult.No)
+            {
+                //nothing
+            }
+
+
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
