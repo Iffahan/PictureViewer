@@ -94,10 +94,18 @@
             string sourcepath = openFileDialog1.FileName;
             destpath = Path.Combine(sourcepath, destpath);
             File.Copy(sourcepath, destpath, true);
-            MessageBox.Show("Add The Picture You Select To Alblum Folder");
-            PictureViewer pictureViewer = new PictureViewer();
-            pictureViewer.Show();
-            this.Dispose(false);
+            DialogResult dialogResult = MessageBox.Show("You Need to reset to show new pictures.", "Added a photo to the album. Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.Yes)
+            {
+                PictureViewer pictureViewer = new PictureViewer();
+                pictureViewer.Show();
+                this.Dispose(false);
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //nothing
+            }
+
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
@@ -113,6 +121,7 @@
                 PictureViewer pictureViewer = new PictureViewer();
                 pictureViewer.Show();
                 this.Dispose(false);
+
             }
         }
 
