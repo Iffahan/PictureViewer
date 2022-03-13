@@ -45,12 +45,35 @@ namespace PictureViewer
 
         private void NextButton_Click(object sender, EventArgs e)
         {
+            counter++;
+            if (counter > images.Length - 1)
+            {
+                counter = 0;
+            }
 
+            if (counter < 0)
+            {
+                counter = images.Length - 1;
+            }
+
+            pictureBox1.Image = Image.FromFile(images[counter]);
         }
 
         private void BackButton_Click(object sender, EventArgs e)
         {
+            counter--;
+            if (counter < 0)
+            {
+                counter = images.Length - 1;
+            }
 
+            if (counter > images.Length - 1)
+            {
+                counter = 0;
+            }
+
+
+            pictureBox1.Image = Image.FromFile(images[counter]);
         }
 
         private void button1_Click(object sender, EventArgs e)
