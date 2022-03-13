@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.DeleteButton = new System.Windows.Forms.Button();
+            this.AddButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
             this.NextButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -36,8 +40,6 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddButton = new System.Windows.Forms.Button();
-            this.DeleteButton = new System.Windows.Forms.Button();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -50,6 +52,8 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.textBox2);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.textBox1);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.DeleteButton);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.AddButton);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.BackButton);
@@ -66,6 +70,41 @@
             // toolStripContainer1.TopToolStripPanel
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(545, 374);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(243, 27);
+            this.textBox2.TabIndex = 6;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(212, 341);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(376, 27);
+            this.textBox1.TabIndex = 5;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Location = new System.Drawing.Point(112, 339);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(94, 29);
+            this.DeleteButton.TabIndex = 4;
+            this.DeleteButton.Text = "DELETE (-)";
+            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            // 
+            // AddButton
+            // 
+            this.AddButton.Location = new System.Drawing.Point(12, 339);
+            this.AddButton.Name = "AddButton";
+            this.AddButton.Size = new System.Drawing.Size(94, 29);
+            this.AddButton.TabIndex = 3;
+            this.AddButton.Text = "ADD (+)";
+            this.AddButton.UseVisualStyleBackColor = true;
+            this.AddButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // BackButton
             // 
@@ -130,26 +169,6 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(226, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
-            // AddButton
-            // 
-            this.AddButton.Location = new System.Drawing.Point(12, 339);
-            this.AddButton.Name = "AddButton";
-            this.AddButton.Size = new System.Drawing.Size(94, 29);
-            this.AddButton.TabIndex = 3;
-            this.AddButton.Text = "ADD (+)";
-            this.AddButton.UseVisualStyleBackColor = true;
-            this.AddButton.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // DeleteButton
-            // 
-            this.DeleteButton.Location = new System.Drawing.Point(112, 339);
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(94, 29);
-            this.DeleteButton.TabIndex = 4;
-            this.DeleteButton.Text = "DELETE (-)";
-            this.DeleteButton.UseVisualStyleBackColor = true;
-            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
-            // 
             // PictureViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -160,6 +179,7 @@
             this.Name = "PictureViewer";
             this.Text = "PictureViewer";
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
+            this.toolStripContainer1.ContentPanel.PerformLayout();
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
             this.toolStripContainer1.TopToolStripPanel.PerformLayout();
             this.toolStripContainer1.ResumeLayout(false);
@@ -183,5 +203,7 @@
         private Button NextButton;
         private Button AddButton;
         private Button DeleteButton;
+        private TextBox textBox1;
+        private TextBox textBox2;
     }
 }

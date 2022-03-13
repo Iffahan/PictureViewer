@@ -1,4 +1,4 @@
-namespace PictureViewer
+﻿namespace PictureViewer
 {
     public partial class PictureViewer : Form
     {
@@ -39,6 +39,9 @@ namespace PictureViewer
             System.Diagnostics.Debug.WriteLine(result.ToString());
             System.Diagnostics.Debug.WriteLine(images.Length);
             System.Diagnostics.Debug.WriteLine(fbd.SelectedPath.ToString());
+
+            textBox1.Text = fbd.SelectedPath.ToString();
+            textBox2.Text = "Number of Pictures in Alblum:  " + images.Length.ToString();
 
             pictureBox1.Image = Image.FromFile(images[counter]);
         }
@@ -91,10 +94,29 @@ namespace PictureViewer
             string sourcepath = openFileDialog1.FileName;
             destpath = Path.Combine(sourcepath, destpath);
             File.Copy(sourcepath, destpath, true);
-            MessageBox.Show("Add The Picyure You Select To Alblum Folder");
+            MessageBox.Show("Add The Picture You Select To Alblum Folder");
+            PictureViewer pictureViewer = new PictureViewer();
+            pictureViewer.Show();
+            this.Dispose(false);
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
+        {
+
+            pictureBox1.Image = Image.FromFile(images[counter - 1]);
+
+            if (File.Exists(images[counter]))
+            {
+                System.GC.Collect();
+                System.GC.WaitForPendingFinalizers();
+                File.Delete(images[counter]);
+                PictureViewer pictureViewer = new PictureViewer();
+                pictureViewer.Show();
+                this.Dispose(false);
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
