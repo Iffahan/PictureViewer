@@ -2,10 +2,14 @@
 {
     public partial class PictureViewer : Form
     {
-        int counter = 1;
+        int counter = 0;
         FolderBrowserDialog fbd = new FolderBrowserDialog();
         private OpenFileDialog openFileDialog1;
         string[] images;
+        FileInfo imageFileinfo;
+        string path = @"E:\TESTP2\"; // this is the path that you are checking.
+
+
 
         public PictureViewer()
         {
@@ -34,7 +38,7 @@
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Please Select an Album Folder First.");
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -43,12 +47,12 @@
 
             images = GetFiles(fbd.SelectedPath, "*.gif|*.jpg|*.png|*.bmp");
 
+
+
             if (result == DialogResult.OK)
             {
                 textBox1.Text = fbd.SelectedPath.ToString();
                 textBox2.Text = "Number of Pictures in Alblum:  " + images.Length.ToString();
-
-                pictureBox1.Image = Image.FromFile(images[counter]);
 
                 NextButton.Show();
                 BackButton.Show();
@@ -56,8 +60,18 @@
                 DeleteButton.Show();
                 textBox1.Show();
                 textBox2.Show();
+
             }
 
+            if (images.Length == 0)
+            {
+                MessageBox.Show("There Are No Images in The Folder You Selected.");
+            }
+            else
+            {
+                Image image = GetCopyImage(images[counter]);
+                pictureBox1.Image = image;
+            }
 
         }
 
@@ -74,7 +88,8 @@
                 counter = images.Length - 1;
             }
 
-            pictureBox1.Image = Image.FromFile(images[counter]);
+            Image image = GetCopyImage(images[counter]);
+            pictureBox1.Image = image;
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -90,8 +105,8 @@
                 counter = 0;
             }
 
-
-            pictureBox1.Image = Image.FromFile(images[counter]);
+            Image image = GetCopyImage(images[counter]);
+            pictureBox1.Image = image;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -125,35 +140,27 @@
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            DialogResult DeleteResult = MessageBox.Show("You want to delete the current picture? ", "Sure?",  MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            Image image = GetCopyImage(images[counter]);
+            pictureBox1.Image = image;
+            pictureBox1.Dispose();
+       
+            DialogResult DeleteResult = MessageBox.Show("You want to delete the current picture? ", "Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (DeleteResult == DialogResult.Yes)
             {
-                pictureBox1.Image = Image.FromFile(images[counter - 1]);
 
-                if (File.Exists(images[counter]))
+                System.IO.File.Delete(images[counter]);
+                DialogResult ResetDelete = MessageBox.Show("You Need to Reset After Delete", "Reset to See New Alblum");
+
+                if (ResetDelete == DialogResult.OK)
                 {
-                    System.GC.Collect();
-                    System.GC.WaitForPendingFinalizers();
-                    File.Delete(images[counter]);
-                    DialogResult ResetDelete = MessageBox.Show("You Need to Reset After Delete","Reset to See New Alblum");
-
-                    if (ResetDelete == DialogResult.OK)
-                    {
-                        PictureViewer pictureViewer = new PictureViewer();
-                        pictureViewer.Show();
-                        this.Dispose(false);
-                    }
+                    PictureViewer pictureViewer = new PictureViewer();
+                    pictureViewer.Show();
+                    this.Dispose(false);
                 }
-
             }
-            else if (DeleteResult == DialogResult.No)
-            {
-                //nothing
-            }
-
-
 
         }
+
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -165,6 +172,76 @@
             PictureViewer pictureViewer = new PictureViewer();
             pictureViewer.Hide();
             this.Dispose(false);
+        }
+
+        private Image GetCopyImage(string path)
+        {
+            using (Image image = Image.FromFile(path))
+            {
+                Bitmap bitmap = new Bitmap(image);
+                return bitmap;
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (System.IO.Directory.Exists(path))
+            {
+                OpenFileDialog ofd = new OpenFileDialog();  //make ofd local
+                ofd.InitialDirectory = path;
+                DialogResult dr = new DialogResult();
+                if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    Image img = new Bitmap(ofd.FileName);
+                    imageFileinfo = new FileInfo(ofd.FileName);  // save the file name
+                    string imgName = ofd.SafeFileName;
+                    pictureBox1.Image = img.GetThumbnailImage(350, 350, null, new IntPtr());
+                    ofd.RestoreDirectory = true;
+                    img.Dispose();
+                }
+                ofd.Dispose();  //don't forget to dispose it!
+            }
+            else
+            {
+                return;
+            }
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            if (Directory.Exists(path))
+            {
+
+                var directory = new DirectoryInfo(path);
+                foreach (FileInfo file in directory.GetFiles())
+                    if (!IsFileLocked(imageFileinfo))
+                    {
+                        File.Delete(@"E:\TESTP2\1.jpg");
+                    }
+            }
+        }
+
+        public static Boolean IsFileLocked(FileInfo path)
+        {
+            FileStream stream = null;
+            try
+            { //Don't change FileAccess to ReadWrite,
+                //because if a file is in readOnly, it fails.
+                stream = path.Open(FileMode.Open, FileAccess.Read, FileShare.None);
+            }
+            catch (IOException)
+            { //the file is unavailable because it is:
+                //still being written to or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+            //file is not locked
+            return false;
         }
     }
 }
