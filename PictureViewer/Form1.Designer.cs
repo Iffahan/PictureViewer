@@ -57,8 +57,6 @@
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label1);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.textBox3);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.textBox1);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.DeleteButton);
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.AddButton);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.BackButton);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.NextButton);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.pictureBox1);
@@ -128,7 +126,6 @@
             // 
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::PictureViewer.Properties.Resources._15jan22;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(1262, 645);
@@ -185,14 +182,14 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.addToolStripMenuItem.Text = "Add (+)";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(156, 26);
             this.deleteToolStripMenuItem.Text = "Delete (-)";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
