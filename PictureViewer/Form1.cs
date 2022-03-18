@@ -39,17 +39,13 @@
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
             try
             {
                 DialogResult result = fbd.ShowDialog();
 
-                images = GetFiles(fbd.SelectedPath, "*.gif|*.jpg|*.png|*.bmp");
-
-
-
                 if (result == DialogResult.OK)
                 {
+                    images = GetFiles(fbd.SelectedPath, "*.gif|*.jpg|*.png|*.bmp");
                     textBox1.Text = images[counter].ToString();
 
                     NextButton.Show();
@@ -62,7 +58,7 @@
 
                     if (images.Length == 0)
                     {
-                        MessageBox.Show("There Are No Images in The Folder You Selected.");
+                        MessageBox.Show("The are No Image in the Folder You Selected");
                     }
                     else
                     {
@@ -75,9 +71,9 @@
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("There Are No Images in The Folder You Selected.");
+                MessageBox.Show("The are No Image in the Folder You Selected", ex.Message);
             }
 
         }
