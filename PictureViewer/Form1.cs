@@ -7,7 +7,6 @@
         private OpenFileDialog openFileDialog1;
         string[] images;
         FileInfo imageFileinfo;
-        string path = @"E:\TESTP2\"; // this is the path that you are checking.
 
 
 
@@ -16,10 +15,11 @@
             InitializeComponent();
             NextButton.Hide();
             BackButton.Hide();
-            AddButton.Hide();
-            DeleteButton.Hide();
             textBox1.Hide();
             textBox3.Hide();
+            editToolStripMenuItem.Visible = false;
+            addToolStripMenuItem.Visible = false;
+            deleteToolStripMenuItem.Visible = false;
 
         }
 
@@ -58,10 +58,12 @@
 
                     NextButton.Show();
                     BackButton.Show();
-                    AddButton.Show();
-                    DeleteButton.Show();
                     textBox1.Show();
                     textBox3.Show();
+                    editToolStripMenuItem.Visible = true;
+                    addToolStripMenuItem.Visible = true;
+                    deleteToolStripMenuItem.Visible = true;
+
                 }
 
                 if (images.Length == 0)
@@ -125,76 +127,12 @@
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                openFileDialog1 = new OpenFileDialog();
-                string Direct = fbd.SelectedPath.ToString();
-
-
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-
-                    string source = openFileDialog1.FileName;
-                    string Fname = Path.GetFileName(openFileDialog1.FileName);
-                    string destpath = Direct + "\\" + Fname;
-                    string sourcepath = openFileDialog1.FileName;
-                    destpath = Path.Combine(sourcepath, destpath);
-                    File.Copy(sourcepath, destpath, true);
-
-                    DialogResult dialogResult = MessageBox.Show("You Need to reset to show new pictures.", "Added a photo to the album. Success.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        PictureViewer pictureViewer = new PictureViewer();
-                        pictureViewer.Show();
-                        this.Dispose(false);
-                    }
-                    else if (dialogResult == DialogResult.No)
-                    {
-                        //nothing
-                    }
-
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("This Image is Already in The Album.");
-            }
-
 
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            Image image = GetCopyImage(images[counter]);
-            pictureBox1.Image = image;
-            pictureBox1.Dispose();
-
-            DialogResult DeleteResult = MessageBox.Show("You want to delete the current picture? ", "Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (DeleteResult == DialogResult.Yes)
-            {
-
-                System.IO.File.Delete(images[counter]);
-                DialogResult ResetDelete = MessageBox.Show("You Need to Reset After Delete", "Reset to See New Alblum");
-
-                if (ResetDelete == DialogResult.OK)
-                {
-                    PictureViewer pictureViewer = new PictureViewer();
-                    pictureViewer.Show();
-                    this.Dispose(false);
-                }
-            }
-
-            else if (DeleteResult == DialogResult.No)
-            {
-                PictureViewer pictureViewer = new PictureViewer();
-                pictureViewer.Show();
-                this.Dispose(false);
-            }
-
-            else
-            {
-
-            }
+            
 
         }
 
@@ -229,28 +167,6 @@
 
         }
 
-        public static Boolean IsFileLocked(FileInfo path)
-        {
-            FileStream stream = null;
-            try
-            { //Don't change FileAccess to ReadWrite,
-                //because if a file is in readOnly, it fails.
-                stream = path.Open(FileMode.Open, FileAccess.Read, FileShare.None);
-            }
-            catch (IOException)
-            { //the file is unavailable because it is:
-                //still being written to or being processed by another thread
-                //or does not exist (has already been processed)
-                return true;
-            }
-            finally
-            {
-                if (stream != null)
-                    stream.Close();
-            }
-            //file is not locked
-            return false;
-        }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
