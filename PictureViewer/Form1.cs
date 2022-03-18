@@ -6,8 +6,6 @@
         FolderBrowserDialog fbd = new FolderBrowserDialog();
         private OpenFileDialog openFileDialog1;
         string[] images;
-        FileInfo imageFileinfo;
-
 
 
         public PictureViewer()
@@ -83,7 +81,6 @@
                 MessageBox.Show("You Haven't Selected a Folder.");
             }
 
-
         }
 
         private void NextButton_Click(object sender, EventArgs e)
@@ -125,23 +122,6 @@
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DeleteButton_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PictureViewer pictureViewer = new PictureViewer();
@@ -156,31 +136,6 @@
                 Bitmap bitmap = new Bitmap(image);
                 return bitmap;
             }
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripContainer1_ContentPanel_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -254,5 +209,47 @@
 
             }
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripContainer1_ContentPanel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
