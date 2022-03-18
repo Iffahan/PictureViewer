@@ -226,8 +226,6 @@
         private PictureBox pictureBox1;
         private Button BackButton;
         private Button NextButton;
-        private Button AddButton;
-        private Button DeleteButton;
         private TextBox textBox1;
         private TextBox textBox3;
         private Label label1;

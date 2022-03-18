@@ -6,6 +6,7 @@
         FolderBrowserDialog fbd = new FolderBrowserDialog();
         private OpenFileDialog openFileDialog1;
         string[] images;
+        
 
 
         public PictureViewer()
@@ -21,6 +22,7 @@
 
         }
 
+
         private string[] GetFiles(string folderPath, String Searchpattern)
         {
             List<string> files = new List<String>();
@@ -35,13 +37,9 @@
             return files.ToArray();
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             try
             {
                 DialogResult result = fbd.ShowDialog();
@@ -62,23 +60,24 @@
                     addToolStripMenuItem.Visible = true;
                     deleteToolStripMenuItem.Visible = true;
 
+                    if (images.Length == 0)
+                    {
+                        MessageBox.Show("There Are No Images in The Folder You Selected.");
+                    }
+                    else
+                    {
+                        Image image = GetCopyImage(images[counter]);
+                        pictureBox1.Image = image;
+                        textBox1.Text = images[counter].ToString();
+                        textBox3.Text = counter.ToString() + " / " + images.Length.ToString();
+                    }
+
                 }
 
-                if (images.Length == 0)
-                {
-                    MessageBox.Show("There Are No Images in The Folder You Selected.");
-                }
-                else
-                {
-                    Image image = GetCopyImage(images[counter]);
-                    pictureBox1.Image = image;
-                    textBox1.Text = images[counter].ToString();
-                    textBox3.Text = counter.ToString() + " / " + images.Length.ToString();
-                }
             }
             catch (Exception)
             {
-                MessageBox.Show("You Haven't Selected a Folder.");
+                MessageBox.Show("There Are No Images in The Folder You Selected.");
             }
 
         }
@@ -124,9 +123,7 @@
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PictureViewer pictureViewer = new PictureViewer();
-            pictureViewer.Hide();
-            this.Dispose(false);
+            this.Close();
         }
 
         private Image GetCopyImage(string path)
@@ -180,7 +177,6 @@
         {
             Image image = GetCopyImage(images[counter]);
             pictureBox1.Image = image;
-            pictureBox1.Dispose();
 
             DialogResult DeleteResult = MessageBox.Show("You want to delete the current picture? ", "Sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (DeleteResult == DialogResult.Yes)
@@ -247,6 +243,11 @@
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }
